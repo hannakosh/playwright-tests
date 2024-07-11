@@ -19,4 +19,3 @@ export abstract class Base {
         return this.locator(`[type="${type}"]`);
     }
 }
-
