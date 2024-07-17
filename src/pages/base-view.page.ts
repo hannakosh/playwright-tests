@@ -8,10 +8,10 @@ export abstract class BaseViewPage extends Base implements Navigatable {
     readonly header = new Header(this.page);
     readonly sidebar = new Sidebar(this.page);
     readonly footer = new TableFooter(this.page);
-    readonly baseUrl: string;
+    readonly pageUrl: string;
 
     url() {
-        return this.baseUrl;
+        return this.pageUrl;
     }
 
     async waitForLoadState(): Promise<void> {

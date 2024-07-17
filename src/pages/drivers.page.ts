@@ -1,5 +1,6 @@
 import { BaseViewPage } from "./base-view.page";
 
 export class DriversPage extends BaseViewPage {
-    readonly baseUrl = 'users/drivers';
+    readonly pageUrl = 'users/drivers';
+    readonly tableRows = this.locator('[class="v-data-table__tr"]');
 }

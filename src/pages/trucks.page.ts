@@ -1,5 +1,6 @@
 import { BaseViewPage } from "./base-view.page";
 
-export class TruckPage extends BaseViewPage {
-    readonly baseUrl =  'fleets/trucks';
+export class TrucksPage extends BaseViewPage {
+    readonly pageUrl =  'fleets/trucks';
+    readonly trucksTable = this.locator('table');
 }
