@@ -29,4 +29,24 @@ test.describe('API Tests', () => {
         const { items, total } = await api.get('trucks');
         expect(trucksPage.footer.pages).toHaveText(`1-${items.length} of ${total}`);
     })
+
+    test('Replace column values', async ({ trucksPage, page }) => {        
+        await page.route('/api/v1/trucks?*', async route => {
+          const response = await route.fetch();
+          const json = await response.json();
+          const replace = number => number.toString().split('')
+            .map(item => ['😀', '🫠', '😱', '🤤', '🤥', '🥵', '😎', '🤢', '👺', '👽️'][item]).join('');
+          json.items.filter(item => !!item.trailer).forEach(item => {
+              item.trailer.payload = replace(item.trailer.payload);
+              item.trailer.length = replace(item.trailer.length);
+              item.trailer.min_width = replace(item.trailer.min_width);
+              item.trailer.min_height = replace(item.trailer.min_height);
+          });
+          await route.fulfill({ response, json });
+        });
+    
+        await goto(trucksPage);
+        await page.waitForSelector('[data-qa="truck-trailer-dims"]');
+        await page.waitForTimeout(30000);
+      });
 })
